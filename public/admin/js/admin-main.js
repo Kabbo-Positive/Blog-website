@@ -1,0 +1,1 @@
+$(".navbar-toggler,.navbar-collapse .close-btn").on("click",(function(){$("html").toggleClass("overflow-hidden nav-open"),$(".navbar-toggler").toggleClass("toggled")}));
