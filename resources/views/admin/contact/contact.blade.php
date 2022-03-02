@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-header">
             All Contact
-          </div>
+        </div>
           <form action="" class="col-9">
             <div class="form-group">
               <input type="search" name="search" id="" class="form-control" placeholder="Search by Name or Email" value="{{ $search }}"/>
