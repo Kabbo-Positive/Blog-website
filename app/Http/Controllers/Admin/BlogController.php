@@ -5,7 +5,6 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -14,7 +13,6 @@ class BlogController extends Controller
     {
         $blogs = Blog::with('category')->get();
         return view('admin.blog.blog', compact('blogs'));
-         //dd($blogs);
     }
 
     public function add()
@@ -70,6 +68,15 @@ class BlogController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'blog_image' => 'required',
+            'blog_title' => 'required',
+            'category_id' => 'required',
+            'meta_title' => 'required',
+            'meta_description' => 'required',
+            'author_name' => 'required',
+            'body' => 'required|min:10',
+        ]);
         $blogs = Blog::find($id);
         if ($request->hasFile('blog_image')) {
             $file = $request->file('blog_image');
@@ -104,7 +111,6 @@ class BlogController extends Controller
                 File::delete($path);
             }
         }
-        $blogs = Blog::find($id);
         if ($blogs->author_image) {
             $path = 'assets/author/' . $blogs->author_image;
             if (File::exists($path)) {

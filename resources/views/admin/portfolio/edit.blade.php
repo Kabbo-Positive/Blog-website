@@ -39,8 +39,8 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="">Url Link</label>
-                        <input type="text" value="{{ $portfolios->url_link }}" class="form-control" name="url_link">
+                        <label for="">Project Link</label>
+                        <input type="text" value="{{ $portfolios->project_link }}" class="form-control" name="project_link">
                     </div>
                 </div>
                     <div class="col-md-12">

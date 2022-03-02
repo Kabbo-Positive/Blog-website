@@ -5,9 +5,9 @@
         <div class="card-header">
             All Contact
         </div>
-          <form action="" class="col-9">
+          <form type="get" action="{{ route('search') }}" class="col-9">
             <div class="form-group">
-              <input type="search" name="search" id="" class="form-control" placeholder="Search by Name or Email" value="{{ $search }}"/>
+              <input type="search" name="search" id="" class="form-control" placeholder="Search by Name or Email"/>
             </div>
             <button class="btn btn-success">Search</button>
             <a href="{{ route('contact') }}">

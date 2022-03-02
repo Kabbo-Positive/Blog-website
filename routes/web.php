@@ -65,11 +65,12 @@ Route::middleware(['auth','isAdmin'])->prefix('admin')->group(function() {
 
     //All Contacts
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    Route::get('/search', [ContactController::class, 'search'])->name('search');
     Route::get('/reply-contact/{id}', [ContactController::class, 'view'])->name('reply_contact');
     Route::get('/delete-contact/{id}', [ContactController::class, 'delete'])->name('delete_contact')->where('id', '[0-9]+');
     Route::post('/reply-contact-email', [ContactController::class, 'reply'])->name('reply_contact_email');
     Route::get('/download-file/{file}', [ContactController::class, 'download'])->name('download_file');
-    Route::get('/status-contact', [ContactController::class, 'search'])->name('status_contact');
+    Route::get('/status-contact', [ContactController::class, 'status'])->name('status_contact');
 
 
  });

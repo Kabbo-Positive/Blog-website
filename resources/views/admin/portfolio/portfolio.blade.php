@@ -33,5 +33,8 @@
       @endforeach
     </div>
   </div>
+  <div class="row">
+    {{ $portfolios->links() }}
+</div>
 </div>
 @endsection

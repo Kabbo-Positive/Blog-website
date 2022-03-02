@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Portfolio;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
 {
     public function index()
     {
-        $portfolios = Portfolio::all();
+        $portfolios = DB::table('portfolios')->orderBy('id','desc')->paginate(2);
         return view('admin.portfolio.portfolio', compact('portfolios'));
     }
 
@@ -27,7 +28,7 @@ class PortfolioController extends Controller
             'sub_title' => 'required',
             'meta_title' => 'required',
             'meta_description' => 'required',
-            'url_link' => 'required',
+            'project_link' => 'required',
         ]);
 
 
@@ -43,7 +44,7 @@ class PortfolioController extends Controller
         $portfolios->sub_title = $request->input('sub_title');
         $portfolios->meta_title = $request->input('meta_title');
         $portfolios->meta_description = $request->input('meta_description');
-        $portfolios->url_link = $request->input('url_link');
+        $portfolios->project_link = $request->input('project_link');
         $portfolios->save();
 
         return redirect()->route('add_portfolio')->with('status', "Portfolio Added Successfully");
@@ -57,6 +58,14 @@ class PortfolioController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => 'required',
+            'title' => 'required',
+            'sub_title' => 'required',
+            'meta_title' => 'required',
+            'meta_description' => 'required',
+            'project_link' => 'required',
+        ]);
         $portfolios = Portfolio::find($id);
         if ($request->hasFile('image')) {
             $path = 'assets/portfolio/' . $portfolios->image;
@@ -73,7 +82,7 @@ class PortfolioController extends Controller
         $portfolios->sub_title = $request->input('sub_title');
         $portfolios->meta_title = $request->input('meta_title');
         $portfolios->meta_description = $request->input('meta_description');
-        $portfolios->url_link = $request->input('url_link');
+        $portfolios->project_link = $request->input('project_link');
         $portfolios->update();
         return redirect()->route('all_portfolio')->with('status', "Portfolio Updated Successfully");
     }

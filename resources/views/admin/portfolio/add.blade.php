@@ -35,8 +35,8 @@
                 </div>
 
                 <div class="col-md-6 mb-4">
-                    <label for="">Url Link</label>
-                    <input type="text" class="form-control" name="url_link" required>
+                    <label for="">Project Link</label>
+                    <input type="text" class="form-control" name="project_link" required>
                 </div>
             </div>
             <div class="row">

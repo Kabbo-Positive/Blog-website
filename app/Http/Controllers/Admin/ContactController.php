@@ -6,15 +6,23 @@ use App\Mail\contactUsMail;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        $search = $request['search'] ?? "";
-        $contacts = Contact::where('name','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%")->paginate(8);
+        $contacts = DB::table('contacts')->paginate(5);
+        //dd($contacts);
+        return view('admin.contact.contact', compact('contacts'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $_GET['search'];
+
+        $contacts = Contact::where('name','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%")->paginate(5);
         //dd($contacts);
         return view('admin.contact.contact', compact('contacts','search'));
     }
@@ -35,7 +43,7 @@ class ContactController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public function status(Request $request)
     {
         $search_text = $_GET['status'];
 
@@ -62,17 +70,6 @@ class ContactController extends Controller
         Mail::to($request->input('email'))->send(new contactUsMail($contact_from_data));
 
         $contacts = Contact::find($request->input('id'));
-        if ($request->hasFile('file')) {
-            $path = 'assets/contact/' . $contacts->file;
-            if (File::exists($path)) {
-                File::delete($path);
-            }
-            $file = $request->file('file');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $ext;
-            $file->move('assets/contact/', $filename);
-            $contacts->file = $filename;
-        }
          // Save reply message to database
          $contacts->reply_message = $request->input('reply_message');
          // update contact status

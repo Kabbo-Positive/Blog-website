@@ -20,7 +20,7 @@ class CreatePortfoliosTable extends Migration
             $table->tinyText('sub_title');
             $table->tinyText('meta_title');
             $table->tinyText('meta_description');
-            $table->string('url_link');
+            $table->string('project_link');
             $table->timestamps();
         });
     }
