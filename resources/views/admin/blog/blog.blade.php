@@ -27,7 +27,15 @@
             <h6 class="card-title">{{ $item->created_at->format('d-M-Y') }}</h6>
             <br>
             <a href="{{ route('edit_blog',[$item->id]) }}" class="btn btn-success">Edit</a>
+
             <a href="{{ route('delete_blog',[$item->id]) }}" class="btn btn-danger">Delete</a>
+
+            @if($item->status==1)
+            <a href="{{ route('featured_blog',[$item->id]) }}" onclick="return confirm('Are you sure?')" class="btn btn-success">Active</a>
+            @else
+            <a href="{{ route('featured_blog',[$item->id]) }}" onclick="return confirm('Are you sure?')" class="btn btn-danger">Inactive</a>
+            @endif
+
           </div>
         </div>
       </div>

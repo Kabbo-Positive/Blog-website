@@ -11,14 +11,14 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
+
                     @if ($blogs->image)
-                    <img src="{{ asset('assets/blog/'.$blogs->image) }}" class="blog-image">
-                   @endif
-                    <div class="col-md-12">
+                        <img src="{{ asset('assets/blog/'.$blogs->image) }}" class="blog-image">
+                    @endif
+                    <div class="col-md-6">
                         <label for="blog_image" class="control-label mb-1">Image</label>
                         <input id="blog_image" value="{{ $blogs->blog_image }}" name="blog_image" type="file" class="form-control" aria-required="true" aria-invalid="false" >
                     </div>
-
                     <div class="col-md-6">
                         <label for="">Blog Title</label>
                         <input type="text" value="{{ $blogs->blog_title }}" class="form-control" name="blog_title">
@@ -38,11 +38,11 @@
                         <label for="">Author Name</label>
                         <input type="text" value="{{ $blogs->author_name }}" class="form-control" name="author_name">
                     </div>
-
+                    
                     @if ($blogs->author_image)
-                    <img src="{{ asset('assets/author/'.$blogs->author_image) }}" class="author-image">
-                   @endif
-                    <div class="col-md-12">
+                       <img src="{{ asset('assets/author/'.$blogs->author_image) }}" class="author-image">
+                    @endif
+                    <div class="col-md-6">
                         <label for="author_image" class="control-label mb-1">Author Image</label>
                         <input id="author_image" value="{{ $blogs->author_image }}" name="author_image" type="file" class="form-control" aria-required="true" aria-invalid="false" >
                     </div>

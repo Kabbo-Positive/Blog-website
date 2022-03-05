@@ -20,6 +20,7 @@ class Blog extends Model
         'meta_description',
         'body',
         'category_id',
+        'status',
     ];
     public function category()
     {

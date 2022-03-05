@@ -28,7 +28,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="col-md-6 mb-4">
                     <label for="">Author Name</label>
                     <input type="text" class="form-control" name="author_name" required>

@@ -50,6 +50,7 @@ class BlogController extends Controller
         }
         $blogs->blog_title = $request->input('blog_title');
         $blogs->category_id = $request->input('category_id');
+        $blogs->status = '0';
         $blogs->author_name = $request->input('author_name');
         $blogs->meta_title = $request->input('meta_title');
         $blogs->meta_description = $request->input('meta_description');
@@ -79,17 +80,27 @@ class BlogController extends Controller
         ]);
         $blogs = Blog::find($id);
         if ($request->hasFile('blog_image')) {
+            $path = 'assets/blog/'.$blogs->blog_image;
+            if(File::exists($path))
+            {
+                file::delete($path);
+            }
             $file = $request->file('blog_image');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
-            $file->move('assets/blog', $filename);
+            $file->move('assets/blog/', $filename);
             $blogs->blog_image = $filename;
         }
         if ($request->hasFile('author_image')) {
+            $path = 'assets/author/'.$blogs->author_image;
+            if(File::exists($path))
+            {
+                file::delete($path);
+            }
             $file = $request->file('author_image');
             $ext = $file->getClientOriginalExtension();
             $filename = time() . '.' . $ext;
-            $file->move('assets/author', $filename);
+            $file->move('assets/author/', $filename);
             $blogs->author_image = $filename;
         }
         $blogs->blog_title = $request->input('blog_title');
@@ -101,6 +112,25 @@ class BlogController extends Controller
         $blogs->update();
         return redirect()->route('all_blog')->with('status', "Blogs Updated Successfully");
     }
+
+     // Add Featured Blog
+     public function featuredBlog($id)
+     {
+         $featured_blogs = Blog::select('status')->where('id',$id)->first();
+         if($featured_blogs->status==1){
+             $status = 0;
+         }else{
+            $status = 1;
+         }
+         Blog::where('id',$id)->update(['status'=>$status]);
+         return redirect()->route('all_blog')->with('status', "Featured Blog Updated Successfully");
+     }
+     
+     public function getFeaturedBlog()
+     {
+         $get_featured_blog = Blog::where('status','1')->get();
+         dd($get_featured_blog);
+     }
 
     public function delete($id)
     {

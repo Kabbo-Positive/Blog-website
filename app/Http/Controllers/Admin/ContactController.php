@@ -13,8 +13,7 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        $contacts = DB::table('contacts')->paginate(5);
-        //dd($contacts);
+        $contacts = DB::table('contacts')->paginate(8);
         return view('admin.contact.contact', compact('contacts'));
     }
 
@@ -22,7 +21,7 @@ class ContactController extends Controller
     {
         $search = $_GET['search'];
 
-        $contacts = Contact::where('name','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%")->paginate(5);
+        $contacts = Contact::where('name','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%")->paginate(8);
         //dd($contacts);
         return view('admin.contact.contact', compact('contacts','search'));
     }
@@ -46,20 +45,17 @@ class ContactController extends Controller
     public function status(Request $request)
     {
         $search_text = $_GET['status'];
-
         $contacts = Contact::where('status','LIKE',"%$search_text%")->paginate(5);
-        //dd($contacts);
         return view('admin.contact.status', compact('contacts','search_text'));
     }
 
 
     public function reply(Request $request)
     {
-
         $request->validate([
             'id'  => 'required' ,
-            'name' => 'required',
-            'email' => 'required',
+            'name' => 'required|min:3',
+            'email' => 'required|email:rfc,dns',
             'subject' => 'required',
             'service' => 'required',
             'message' => 'required',

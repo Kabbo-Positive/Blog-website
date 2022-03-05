@@ -117,7 +117,6 @@
                                     <td>{{ $item->status }}</td>
                                     <td>
                                         <a href="{{ route('reply_contact',Crypt::encryptString($item->id))}}" class="btn btn-success">View</a>
-                                        <a href="{{ route('delete_contact',[$item->id]) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

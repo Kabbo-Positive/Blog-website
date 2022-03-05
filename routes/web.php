@@ -55,6 +55,10 @@ Route::middleware(['auth','isAdmin'])->prefix('admin')->group(function() {
     Route::put('/update-blog/{id}', [BlogController::class, 'update'])->name('update_blog')->where('id', '[0-9]+');
     Route::get('/delete-blog/{id}', [BlogController::class, 'delete'])->name('delete_blog')->where('id', '[0-9]+');
 
+    //Featured Blog
+    Route::get('/featured-blog/{id}', [BlogController::class, 'featuredBlog'])->name('featured_blog');
+    Route::get('/get-featured-blog',[BlogController::class,'getFeaturedBlog'])->name('get_featured_blog');
+
     //All Portfolio
     Route::get('/all-portfolio', [PortfolioController::class, 'index'])->name('all_portfolio');
     Route::get('/add-portfolio', [PortfolioController::class, 'add'])->name('add_portfolio');
