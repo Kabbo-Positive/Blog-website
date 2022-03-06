@@ -83,7 +83,7 @@ class BlogController extends Controller
             $path = 'assets/blog/'.$blogs->blog_image;
             if(File::exists($path))
             {
-                file::delete($path);
+                File::delete($path);
             }
             $file = $request->file('blog_image');
             $ext = $file->getClientOriginalExtension();
@@ -95,7 +95,7 @@ class BlogController extends Controller
             $path = 'assets/author/'.$blogs->author_image;
             if(File::exists($path))
             {
-                file::delete($path);
+                File::delete($path);
             }
             $file = $request->file('author_image');
             $ext = $file->getClientOriginalExtension();
@@ -105,6 +105,7 @@ class BlogController extends Controller
         }
         $blogs->blog_title = $request->input('blog_title');
         $blogs->category_id = $request->input('category_id');
+        //$blogs->status = $request->input('status');
         $blogs->author_name = $request->input('author_name');
         $blogs->meta_title = $request->input('meta_title');
         $blogs->meta_description = $request->input('meta_description');
@@ -112,25 +113,6 @@ class BlogController extends Controller
         $blogs->update();
         return redirect()->route('all_blog')->with('status', "Blogs Updated Successfully");
     }
-
-     // Add Featured Blog
-     public function featuredBlog($id)
-     {
-         $featured_blogs = Blog::select('status')->where('id',$id)->first();
-         if($featured_blogs->status==1){
-             $status = 0;
-         }else{
-            $status = 1;
-         }
-         Blog::where('id',$id)->update(['status'=>$status]);
-         return redirect()->route('all_blog')->with('status', "Featured Blog Updated Successfully");
-     }
-     
-     public function getFeaturedBlog()
-     {
-         $get_featured_blog = Blog::where('status','1')->get();
-         dd($get_featured_blog);
-     }
 
     public function delete($id)
     {
@@ -149,5 +131,37 @@ class BlogController extends Controller
         }
         $blogs->delete();
         return redirect()->route('all_blog')->with('status', "Blog Deleted Successfully");
+    }
+
+    // Add Featured Blog
+    public function featuredBlog($id)
+    {
+        // need to get which one is featured
+
+       // $featured_blogs = Blog::select('id')->where('status','1')->first();
+        //$featured_blogs = Blog::select('status')->where('id',$id)->first();
+        //dd($featured_blogs);
+        
+        // not in featured. status update 
+        
+        // $featured_blogs->status = '0';
+        // $featured_blogs->update();
+
+
+        $featured_blogs = Blog::select('status')->where('id',$id)->first();
+        if($featured_blogs->status==1){
+            $status = 0;
+        }else{
+           $status = 1;
+        }
+        Blog::where('id',$id)->update(['status'=>$status]);
+        return redirect()->route('all_blog')->with('status', "Featured Blog Updated Successfully");
+    }
+
+    // Get Featured Blog Id
+    public function getFeaturedBlog()
+    {
+        $get_featured_blog = Blog::where('status','1')->get();
+        dd($get_featured_blog);
     }
 }

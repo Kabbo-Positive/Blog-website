@@ -17,15 +17,6 @@ class ContactController extends Controller
         return view('admin.contact.contact', compact('contacts'));
     }
 
-    public function search(Request $request)
-    {
-        $search = $_GET['search'];
-
-        $contacts = Contact::where('name','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%")->paginate(8);
-        //dd($contacts);
-        return view('admin.contact.contact', compact('contacts','search'));
-    }
-
     public function view($id)
     {        
         $decryptedId = Crypt::decryptString($id);
@@ -41,14 +32,6 @@ class ContactController extends Controller
             return view('admin.contact.reply', compact('contacts'));
         }
     }
-
-    public function status(Request $request)
-    {
-        $search_text = $_GET['status'];
-        $contacts = Contact::where('status','LIKE',"%$search_text%")->paginate(5);
-        return view('admin.contact.status', compact('contacts','search_text'));
-    }
-
 
     public function reply(Request $request)
     {
@@ -85,5 +68,21 @@ class ContactController extends Controller
         $contacts = Contact::find($id);
         $contacts->delete();
         return redirect()->route('contact')->with('status', "Contact Deleted Successfully");
+    }
+
+    public function search(Request $request)
+    {
+        $search = $_GET['search'];
+
+        $contacts = Contact::where('name','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%")->paginate(15);
+        //dd($contacts);
+        return view('admin.contact.contact', compact('contacts','search'));
+    }
+
+    public function status(Request $request)
+    {
+        $search_text = $_GET['status'];
+        $contacts = Contact::where('status','LIKE',"%$search_text%")->paginate(4);
+        return view('admin.contact.status', compact('contacts','search_text'));
     }
 }

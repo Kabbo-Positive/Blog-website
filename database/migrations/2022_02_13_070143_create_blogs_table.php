@@ -18,7 +18,7 @@ class CreateBlogsTable extends Migration
             $table->string('blog_image');
             $table->tinyText('blog_title');
             $table->bigInteger('category_id');
-            $table->tinyInteger('status')->default('0');
+            $table->boolean('status');
             $table->string('author_name');
             $table->string('author_image');
             $table->tinyText('meta_title');
