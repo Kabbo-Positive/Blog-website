@@ -75,14 +75,13 @@ class ContactController extends Controller
         $search = $_GET['search'];
 
         $contacts = Contact::where('name','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%")->paginate(15);
-        //dd($contacts);
         return view('admin.contact.contact', compact('contacts','search'));
     }
 
     public function status(Request $request)
     {
         $search_text = $_GET['status'];
-        $contacts = Contact::where('status','LIKE',"%$search_text%")->paginate(4);
+        $contacts = Contact::where('status','LIKE',"%$search_text%")->paginate(3);
         return view('admin.contact.status', compact('contacts','search_text'));
     }
 }

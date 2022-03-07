@@ -56,7 +56,7 @@ Route::middleware(['auth','isAdmin'])->prefix('admin')->group(function() {
     Route::get('/delete-blog/{id}', [BlogController::class, 'delete'])->name('delete_blog')->where('id', '[0-9]+');
 
     //Featured Blog
-    Route::get('/featured-blog/{id}', [BlogController::class, 'featuredBlog'])->name('featured_blog');
+    Route::post('/featured-blog', [BlogController::class, 'featuredBlog'])->name('featured_blog');
     Route::get('/get-featured-blog',[BlogController::class,'getFeaturedBlog'])->name('get_featured_blog');
 
     //All Portfolio

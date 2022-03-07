@@ -20,7 +20,7 @@ class Blog extends Model
         'meta_description',
         'body',
         'category_id',
-        'status',
+        'featured',
     ];
     public function category()
     {

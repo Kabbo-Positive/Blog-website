@@ -30,10 +30,14 @@
 
             <a href="{{ route('delete_blog',[$item->id]) }}" class="btn btn-danger">Delete</a>
 
-            @if($item->status==1)
-            <a href="{{ route('featured_blog',[$item->id]) }}" onclick="return confirm('Are you sure?')" class="btn btn-success">Active</a>
+            @if($item->featured)
+            <a href="{{ route('featured_blog',[$item->id]) }}" class="btn btn-success">Featured</a>
             @else
-            <a href="{{ route('featured_blog',[$item->id]) }}" onclick="return confirm('Are you sure?')" class="btn btn-danger">Inactive</a>
+           <form action="{{ route('featured_blog') }}" method="post">
+             <input type="hidden" name="id" value="{{ $item->id }}">
+             @csrf
+             <button type="submit" class="btn btn-sm btn-danger">Make It Featured</button>
+           </form>
             @endif
 
           </div>

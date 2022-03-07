@@ -50,7 +50,6 @@ class BlogController extends Controller
         }
         $blogs->blog_title = $request->input('blog_title');
         $blogs->category_id = $request->input('category_id');
-        $blogs->status = '0';
         $blogs->author_name = $request->input('author_name');
         $blogs->meta_title = $request->input('meta_title');
         $blogs->meta_description = $request->input('meta_description');
@@ -105,7 +104,6 @@ class BlogController extends Controller
         }
         $blogs->blog_title = $request->input('blog_title');
         $blogs->category_id = $request->input('category_id');
-        //$blogs->status = $request->input('status');
         $blogs->author_name = $request->input('author_name');
         $blogs->meta_title = $request->input('meta_title');
         $blogs->meta_description = $request->input('meta_description');
@@ -132,30 +130,17 @@ class BlogController extends Controller
         $blogs->delete();
         return redirect()->route('all_blog')->with('status', "Blog Deleted Successfully");
     }
-
+ 
     // Add Featured Blog
-    public function featuredBlog($id)
+    public function featuredBlog(Request $request)
     {
         // need to get which one is featured
-
-       // $featured_blogs = Blog::select('id')->where('status','1')->first();
-        //$featured_blogs = Blog::select('status')->where('id',$id)->first();
-        //dd($featured_blogs);
-        
-        // not in featured. status update 
-        
-        // $featured_blogs->status = '0';
-        // $featured_blogs->update();
-
-
-        $featured_blogs = Blog::select('status')->where('id',$id)->first();
-        if($featured_blogs->status==1){
-            $status = 0;
-        }else{
-           $status = 1;
-        }
-        Blog::where('id',$id)->update(['status'=>$status]);
-        return redirect()->route('all_blog')->with('status', "Featured Blog Updated Successfully");
+       $featured_blogs = Blog::where('featured', true)->get();
+       Blog::where('id', $featured_blogs[0]->id)->update(['featured'=>false]);
+       
+        // not in featured. featured update 
+       Blog::where('id', $request->input('id'))->update(['featured'=>true]);
+       return redirect()->route('all_blog')->with('status', "Featured Blog Updated Successfully");
     }
 
     // Get Featured Blog Id
