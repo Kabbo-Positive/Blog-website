@@ -42,8 +42,8 @@
                         <div class="card-block">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <h6 class="text-muted m-b-0 f-12">Total Portfolio</h6>
-                                    <h4 class="text-c-purple">{{ $portfoliocount }}</h4>
+                                    <h6 class="text-muted m-b-0 f-12">Total Photography</h6>
+                                    <h4 class="text-c-purple">{{ $photographycount }}</h4>
                                 </div>
                                 <div class="col-4 text-right">
                                     <i class="fa fa-ticket f-28" aria-hidden="true"></i>

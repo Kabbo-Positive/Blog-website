@@ -11,7 +11,8 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::with('category')->get();
+        $blogs = Blog::select(['id', 'blog_image', 'blog_title','featured' ,'category_id' , 'created_at'])
+        ->with('category:id,category_name')->orderBy('id', 'desc')->paginate(15);
         return view('admin.blog.blog', compact('blogs'));
     }
 
@@ -136,7 +137,10 @@ class BlogController extends Controller
     {
         // need to get which one is featured
        $featured_blogs = Blog::where('featured', true)->get();
-       Blog::where('id', $featured_blogs[0]->id)->update(['featured'=>false]);
+       // dd($featured_blogs);
+       if (count($featured_blogs)>0) {
+        Blog::where('id', $featured_blogs[0]->id)->update(['featured'=>false]);
+       }
        
         // not in featured. featured update 
        Blog::where('id', $request->input('id'))->update(['featured'=>true]);

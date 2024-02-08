@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+photography@extends('layouts.admin')
 
 @section('content')
     <div class="card">

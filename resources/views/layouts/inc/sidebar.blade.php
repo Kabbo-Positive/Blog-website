@@ -1,7 +1,7 @@
 <div class="sidebar">
   <div class="logo py-2 bg-black"><a href="#" class="d-block text-center">
       {{-- <img class="logo-image" src="{{ asset('site/img/logo.png') }}" alt="Ecommerce Shop"> --}}
-      <h6>Iinkkify IT</h6>
+      <h6>MyBlog</h6>
     </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
@@ -24,6 +24,20 @@
         <a class="nav-link" href="{{ route('all_blog') }}">
           <i class="material-icons">dashboard</i>
           <p>All Blog</p>
+        </a>
+      </li>
+
+      <li class="nav-item {{ Request::is('all_photography_category') ? 'active':''}} ">
+        <a class="nav-link" href="{{ route('all_photography_category') }}">
+          <i class="material-icons">dashboard</i>
+          <p>All PhotographyCategory</p>
+        </a>
+      </li>
+
+      <li class="nav-item {{ Request::is('all_photography') ? 'active':''}} ">
+        <a class="nav-link" href="{{ route('all_photography') }}">
+          <i class="material-icons">dashboard</i>
+          <p>All Photography</p>
         </a>
       </li>
 
@@ -62,23 +76,3 @@
     </ul>
   </div>
 </div>
-
-
-      {{-- <li class="nav-item {{ Request::is('add_category') ? 'active':''}} ">
-        <a class="nav-link" href="{{ route('add_category') }}">
-          <i class="material-icons">dashboard</i>
-          <p>Add BlogCategory</p>
-        </a>
-      </li> --}}
-      {{-- <li class="nav-item {{ Request::is('add_blog') ? 'active':''}} ">
-        <a class="nav-link" href="{{ route('add_blog') }}">
-          <i class="material-icons">dashboard</i>
-          <p>Add Blog</p>
-        </a>
-      </li> --}}
-      {{-- <li class="nav-item {{ Request::is('add_portfolio') ? 'active':''}} ">
-        <a class="nav-link" href="{{ route('add_portfolio') }}">
-          <i class="material-icons">dashboard</i>
-          <p>Add Portfolio</p>
-        </a>
-      </li> --}}

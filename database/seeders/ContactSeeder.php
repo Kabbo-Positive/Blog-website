@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Models\Contact;
 use Illuminate\Database\Seeder;
 
@@ -13,15 +15,16 @@ class ContactSeeder extends Seeder
      */
     public function run()
     {
-        // $contact = new Contact();
-        // $contact->name ='Steve Ballmer';
-        // $contact->email = 'ballmer@gmail.com';
-        // $contact->subject ='something';
-        // $contact->message ='I am Steve Ballmer from USA';
-        // $contact->service ='something';
-        // $contact->status ='unread';
-        // $contact->file ='something';
-        // $contact->save();
+        DB::table('contacts')->insert([
+            'name' => Str::random(10),
+            'email' => Str::random(10).'@gmail.com',
+            'subject' => Str::random(10),
+            'message' => Str::random(10),
+            'service' => Str::random(10),
+            'status' => 'unread',
+            'file' => Str::random(10),
+            'email' => Str::random(10),
+        ]);
 
     }
 }

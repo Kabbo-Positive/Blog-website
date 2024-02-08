@@ -2,8 +2,11 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\PhotographyCategoryController;
+use App\Http\Controllers\Admin\PhotographyController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\UserController;
 use App\Mail\contactUsMail;
 use Illuminate\Support\Facades\Auth;
@@ -21,9 +24,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [FrontController::class, 'index']);
 
 Auth::routes();
 Route::get('/data',[UserController::class,'index']);
@@ -58,6 +62,22 @@ Route::middleware(['auth','isAdmin'])->prefix('admin')->group(function() {
     //Featured Blog
     Route::post('/featured-blog', [BlogController::class, 'featuredBlog'])->name('featured_blog');
     Route::get('/get-featured-blog',[BlogController::class,'getFeaturedBlog'])->name('get_featured_blog');
+
+    //All PhotographyCategory
+    Route::get('/all-photography-category', [PhotographyCategoryController::class, 'index'])->name('all_photography_category');
+    Route::get('/add-photography-category', [PhotographyCategoryController::class, 'add'])->name('add_photography_category');
+    Route::post('/insert-photography-category', [PhotographyCategoryController::class, 'insert'])->name('insert_photography_category');
+    Route::get('/edit-photography-category/{id}', [PhotographyCategoryController::class, 'edit'])->name('edit_photography_category')->where('id', '[0-9]+');
+    Route::put('/update-photography-category/{id}', [PhotographyCategoryController::class, 'update'])->name('update_photography_category')->where('id', '[0-9]+');
+    Route::get('/delete-photography-category/{id}', [PhotographyCategoryController::class, 'delete'])->name('delete_photography_category')->where('id', '[0-9]+');
+
+    //All Blogs
+    Route::get('/all-photography', [PhotographyController::class, 'index'])->name('all_photography');
+    Route::get('/add-photography', [PhotographyController::class, 'add'])->name('add_photography');
+    Route::post('/insert-photography', [PhotographyController::class, 'insert'])->name('insert_photography');
+    Route::get('/edit-photography/{id}', [PhotographyController::class, 'edit'])->name('edit_photography')->where('id', '[0-9]+');
+    Route::put('/update-photography/{id}', [PhotographyController::class, 'update'])->name('update_photography')->where('id', '[0-9]+');
+    Route::get('/delete-photography/{id}', [PhotographyController::class, 'delete'])->name('delete_photography')->where('id', '[0-9]+');
 
     //All Portfolio
     Route::get('/all-portfolio', [PortfolioController::class, 'index'])->name('all_portfolio');

@@ -6,7 +6,7 @@
         document.write(new Date().getFullYear())
       </script>, made with <i class="material-icons">favorite</i> by
       <a href="https://www.codixel.tech/">
-        Codixel
+        Kabbo Hridoy
       </a>
     </div>
   </div>

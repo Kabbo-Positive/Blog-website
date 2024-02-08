@@ -13,7 +13,7 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        $contacts = DB::table('contacts')->paginate(8);
+        $contacts = DB::table('contacts')->paginate(10);
         return view('admin.contact.contact', compact('contacts'));
     }
 
@@ -81,7 +81,7 @@ class ContactController extends Controller
     public function status(Request $request)
     {
         $search_text = $_GET['status'];
-        $contacts = Contact::where('status','LIKE',"%$search_text%")->paginate(3);
+        $contacts = Contact::where('status','LIKE',"%$search_text%")->paginate(15);
         return view('admin.contact.status', compact('contacts','search_text'));
     }
 }

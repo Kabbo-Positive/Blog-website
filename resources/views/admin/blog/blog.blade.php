@@ -24,8 +24,6 @@
             <br>
             <h6 class="card-title">{{ $item->author_name }}</h6>
             <br>
-            <h6 class="card-title">{{ $item->created_at->format('d-M-Y') }}</h6>
-            <br>
             <a href="{{ route('edit_blog',[$item->id]) }}" class="btn btn-success">Edit</a>
 
             <a href="{{ route('delete_blog',[$item->id]) }}" class="btn btn-danger">Delete</a>
@@ -46,5 +44,8 @@
       @endforeach
     </div>
   </div>
+  <div class="row">
+    {{ $blogs->links() }}
+</div>
 </div>
 @endsection
